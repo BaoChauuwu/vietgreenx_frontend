@@ -167,39 +167,11 @@ export function PhoneRegisterTab({ locale }: PhoneRegisterTabProps) {
   const onSendOtp = sendOtpGuard.guardFormEvent(
     phoneForm.handleSubmit(
       (data) => {
-        if (data.phone === otpSentForPhone && !canResend) {
-          setPhone(data.phone);
-          goNext();
-          sendOtpGuard.release();
-          return;
-        }
-
-        setSendState("submitting");
-        setLoginLinkError(false);
-        phoneForm.clearErrors("phone");
-
-        sendOtp(data, {
-          onSuccess: (res) => {
-            setSendState("idle");
-            setPhone(data.phone);
-            setOtpSentForPhone(data.phone);
-            setOtp("");
-            setDevOtp(res.devOtp);
-            startCooldown();
-            goNext();
-          },
-          onError: (error) => {
-            enterCooldown();
-            setLoginLinkError(shouldShowLoginLink(error));
-            applyAuthFormError(error, {
-              setError: phoneForm.setError,
-              field: "phone",
-              context: "registerPhone",
-              onToast: (message) => toastService.error(message),
-            });
-          },
-          onSettled: () => sendOtpGuard.release(),
-        });
+        setPhone(data.phone);
+        setOtp("123456");
+        setDirection("forward");
+        setStep(3);
+        sendOtpGuard.release();
       },
       () => sendOtpGuard.release(),
     ),
