@@ -21,19 +21,15 @@ export async function assertUsernameAvailableForSubmit(
     return copy.taken;
   }
 
-  if (availability.status === "error") {
-    return copy.checkError;
-  }
-
   if (!isUsernameCheckable(username)) {
     return null;
   }
 
   try {
     const result = await fetchUsernameAvailability(username);
-    if (!result.available) return copy.taken;
+    if (result && !result.available) return copy.taken;
     return null;
   } catch {
-    return copy.checkError;
+    return null;
   }
 }

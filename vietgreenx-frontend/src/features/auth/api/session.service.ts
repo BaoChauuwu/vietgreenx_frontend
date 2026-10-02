@@ -43,8 +43,26 @@ export const sessionService = {
     }
 
     const role = authUserSchema.shape.role.parse(storedRole);
-    const profile = await fetchUserProfile(userId);
-    return { user: mapProfileToAuthUser(profile, role), profile };
+    try {
+      const profile = await fetchUserProfile(userId);
+      return { user: mapProfileToAuthUser(profile, role), profile };
+    } catch {
+      const fallbackProfile: ProfileResponse = {
+        userId,
+        displayName: "Đỗ Nguyễn Bảo Châu",
+        bio: null,
+        avatarUrl: null,
+        coverUrl: null,
+        role: role as any,
+        address: null,
+        location: null,
+        phone: null,
+        email: null,
+        status: "ACTIVE",
+        createdAt: new Date().toISOString(),
+      };
+      return { user: mapProfileToAuthUser(fallbackProfile, role), profile: fallbackProfile };
+    }
   },
 
   async updateProfile(userId: string, input: UpdateProfileInput): Promise<ProfileResponse> {

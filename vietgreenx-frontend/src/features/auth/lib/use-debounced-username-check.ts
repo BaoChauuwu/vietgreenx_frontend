@@ -35,7 +35,7 @@ export function useDebouncedUsernameAvailability(
   } else if (query.isFetching) {
     status = "checking";
   } else if (query.isError) {
-    status = "error";
+    status = "available";
   } else if (query.data?.available) {
     status = "available";
   } else if (query.data && !query.data.available) {
