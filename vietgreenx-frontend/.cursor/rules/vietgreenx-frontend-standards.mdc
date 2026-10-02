@@ -1,0 +1,24 @@
+---
+description: Enforce VietGreenX frontend architecture and coding flow
+alwaysApply: true
+---
+
+# VietGreenX Frontend Standards
+
+Follow these rules for every change:
+
+- Respect dependency direction: `app -> widgets -> features -> entities -> shared`. Never import upward.
+- Treat `app` routes as thin composition shells; keep business logic in `features` and composition in `widgets`.
+- For API data flow, always use: `ui -> query hooks -> service -> createService -> axios instance`. Do not call axios directly in components.
+- Define domain types and Zod schemas in `entities/*/model`; derive TS types from Zod where possible.
+- Keep action-oriented logic (forms, mutations, submit handlers) in `features/*`.
+- Reuse primitives from `shared/ui`; do not re-implement base Button/Input/Card if equivalent already exists.
+- Form submit stack: `useGuardedSubmit` + `GuardedForm` + `SubmitButton` + `useSingleFlightMutation` (DEV-PLAYBOOK §3).
+- Export each slice via `index.ts` barrel and import through barrel paths, not deep internal file paths.
+- Apply role/permission checks through `shared/auth` (`useUser().can()`, `AuthWrapper requiredRoles`) and keep FE checks for UX only.
+- Use `ROUTES` from `@/shared/routing` for all links and redirects; never hardcode URL strings.
+- Post-auth default destination is `/feed` (`ROUTES.home`); protected routes follow `route-contract.ts`.
+- Prefer adding new work under `src/features`, `src/entities`, `src/widgets`, `src/shared`.
+- Before finishing substantive edits, run project checks when possible (`npm run lint`, `npm run typecheck`) and fix newly introduced issues.
+
+When in doubt, align with: `ARCHITECTURE.md`, `DEV-PLAYBOOK.md`, and `FSD-GUIDE.md`.

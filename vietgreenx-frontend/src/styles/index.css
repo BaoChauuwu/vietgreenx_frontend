@@ -1,0 +1,134 @@
+/*
+ * Design tokens — sourced from Figma "Mã màu sử dụng" (node 431:2)
+ *
+ * Source colors (Figma exact):
+ *   primary   #038645  → HSL(150 96% 27%)  — CTA, active tabs, main links
+ *   secondary #F35A10  → HSL(20 90% 51%)   — badges, QR highlight, sparse emphasis (~5–10%)
+ *   tertiary  #30C442  → HSL(127 61% 48%)  — bright green accent, trace/QR icons
+ *   dark      #114232  → HSL(160 59% 16%)  — primary-900, deep backgrounds
+ *   surface   #E7F7EC  → HSL(139 50% 94%)  — primary-50, green surfaces
+ *   black     #000000                       — foreground
+ *   white     #FFFFFF                       — background, cards
+ *   gray      #6B7280  → HSL(220 9% 46%)   — muted text
+ *
+ * Opacity variants (10%) used via Tailwind: bg-primary/10, bg-secondary/10, bg-tertiary/10
+ */
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+
+  /* Primary — #038645 (dark CTA green) */
+  --primary: 150 96% 27%;
+  --primary-foreground: 0 0% 100%;
+  --primary-50:  139 50% 94%;   /* #E7F7EC */
+  --primary-100: 145 55% 87%;
+  --primary-200: 147 65% 75%;
+  --primary-300: 148 78% 60%;
+  --primary-400: 149 88% 44%;
+  --primary-500: 150 93% 34%;
+  --primary-600: 150 96% 27%;   /* #038645 — DEFAULT */
+  --primary-700: 152 96% 22%;
+  --primary-800: 158 55% 24%;   /* #1B5E45 — sidebar active item */
+  --primary-900: 160 59% 16%;   /* #114232 */
+  --primary-950: 162 65% 10%;
+
+  /* Secondary — #F35A10 (orange) */
+  --secondary: 20 90% 51%;
+  --secondary-foreground: 0 0% 100%;
+  --secondary-50:  20 90% 96%;
+  --secondary-100: 20 88% 90%;
+  --secondary-200: 20 86% 80%;
+  --secondary-300: 20 85% 68%;
+  --secondary-400: 20 88% 60%;
+  --secondary-500: 20 90% 51%;   /* #F35A10 — DEFAULT */
+  --secondary-600: 20 84% 42%;
+  --secondary-700: 20 78% 34%;
+  --secondary-800: 20 72% 26%;
+  --secondary-900: 20 65% 20%;
+  --secondary-950: 20 60% 12%;
+
+  /* Tertiary — #30C442 (bright green accent) */
+  --tertiary: 127 61% 48%;
+  --tertiary-foreground: 0 0% 100%;
+  --tertiary-50:  127 61% 96%;
+  --tertiary-100: 127 60% 90%;
+  --tertiary-200: 127 60% 78%;
+  --tertiary-300: 127 61% 65%;
+  --tertiary-400: 127 61% 57%;
+  --tertiary-500: 127 61% 48%;   /* #30C442 — DEFAULT */
+  --tertiary-600: 127 58% 40%;
+  --tertiary-700: 127 55% 32%;
+  --tertiary-800: 127 50% 24%;
+  --tertiary-900: 127 45% 17%;
+  --tertiary-950: 127 42% 10%;
+
+  --muted: 220 9% 93%;
+  --muted-foreground: 220 9% 46%;   /* #6B7280 */
+
+  --accent: 139 50% 94%;            /* #E7F7EC */
+  --accent-foreground: 150 96% 20%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 220 9% 88%;
+  --input: 220 9% 88%;
+  --ring: 150 96% 27%;
+
+  --neutral-50:  0 0% 98%;
+  --neutral-100: 220 9% 95%;
+  --neutral-200: 220 9% 88%;
+  --neutral-300: 220 9% 78%;
+  --neutral-400: 220 9% 62%;
+  --neutral-500: 220 9% 46%;    /* #6B7280 */
+  --neutral-600: 220 9% 38%;
+  --neutral-700: 220 9% 28%;
+  --neutral-800: 220 9% 18%;
+  --neutral-900: 220 9% 12%;
+  --neutral-950: 220 9% 6%;
+
+  --radius: 8px;
+  --radius-lg: 12px;
+
+  --font-display: var(--font-sans), system-ui, sans-serif;
+}
+
+.dark {
+  --background: 160 59% 6%;
+  --foreground: 0 0% 98%;
+
+  --card: 160 30% 10%;
+  --card-foreground: 0 0% 98%;
+
+  --popover: 160 30% 10%;
+  --popover-foreground: 0 0% 98%;
+
+  --primary: 150 80% 40%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 20 88% 58%;
+  --secondary-foreground: 0 0% 100%;
+
+  --tertiary: 127 58% 55%;
+  --tertiary-foreground: 0 0% 100%;
+
+  --muted: 220 9% 16%;
+  --muted-foreground: 220 9% 62%;
+
+  --accent: 160 40% 16%;
+  --accent-foreground: 139 50% 80%;
+
+  --destructive: 0 62% 45%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 220 9% 20%;
+  --input: 220 9% 20%;
+  --ring: 150 80% 40%;
+}

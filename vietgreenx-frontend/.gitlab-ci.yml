@@ -1,0 +1,11 @@
+stages:
+  - build
+  - deploy
+
+include:
+  - project: "vietgreenx/vietgreenx-gitlab-ci"
+    ref: main
+    file:
+      - "fe-client/.install-dependencies.yml"
+      - "fe-client/.build-fe-client.yml"
+      - "fe-client/.deploy-fe-client.yml"

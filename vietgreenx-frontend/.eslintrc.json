@@ -1,0 +1,57 @@
+{
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
+  "plugins": ["boundaries"],
+  "settings": {
+    "boundaries/elements": [
+      { "type": "shared",    "pattern": "src/shared/**" },
+      { "type": "entities",  "pattern": "src/entities/*/**", "capture": ["slice"] },
+      { "type": "features",  "pattern": "src/features/*/**", "capture": ["slice"] },
+      { "type": "app-shell", "pattern": "src/widgets/app-shell/**" },
+      { "type": "widgets",   "pattern": "src/widgets/*/**",  "capture": ["slice"] },
+      { "type": "app",       "pattern": "src/app/**" }
+    ],
+    "boundaries/ignore": ["**/*.test.*", "**/*.spec.*", "**/*.d.ts"]
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "boundaries/element-types": ["error", {
+      "default": "disallow",
+      "rules": [
+        {
+          "from": "app",
+          "allow": ["app", "shared", "entities", "features", "app-shell", "widgets"]
+        },
+        {
+          "from": "widgets",
+          "allow": [
+            "shared", "entities", "features", "app-shell",
+            ["widgets", { "slice": "${from.slice}" }]
+          ]
+        },
+        {
+          "from": "app-shell",
+          "allow": ["shared", "entities", "features", "app-shell"]
+        },
+        {
+          "from": "features",
+          "allow": [
+            "shared", "entities",
+            ["features", { "slice": "${from.slice}" }]
+          ]
+        },
+        {
+          "from": "entities",
+          "allow": [
+            "shared",
+            ["entities", { "slice": "${from.slice}" }]
+          ]
+        },
+        {
+          "from": "shared",
+          "allow": ["shared"]
+        }
+      ]
+    }]
+  }
+}

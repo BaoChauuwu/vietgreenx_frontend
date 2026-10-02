@@ -1,0 +1,30 @@
+---
+description: Authoritative VietGreenX MVP docs — consult before any code change
+alwaysApply: true
+---
+
+# VietGreenX MVP — Source of Truth
+
+**Đọc trước khi tạo file mới.** Full docs trong `social-app/`:
+
+| File | Nội dung |
+|---|---|
+| `ARCHITECTURE.md` | Route zones, 3-layer auth, folder map, state, AppShell, team ownership |
+| `DEV-PLAYBOOK.md` | Workflow entity→feature→page, forms, PR checklist, anti-patterns |
+| `FSD-GUIDE.md` | Layer rules, ví dụ Production Log, tech-debt list |
+
+URL conflicts: **`src/shared/routing/route-contract.ts` wins** → sync ARCHITECTURE.md.
+
+## Non-negotiables
+
+- **ROUTES:** `@/shared/routing` — never hardcode paths
+- **Post-auth:** `ROUTES.home` (`/feed`); onboarding incomplete → `/onboarding`
+- **Layers:** `app → widgets → features → entities → shared` — never import upward
+- **`app/`:** thin shells; logic in `features/`; screen assembly in `widgets/`
+- **Types:** Zod in `entities/*/model`; validate API in services
+- **Data flow:** `ui → queries → service → createService → axios` — no axios in UI
+- **Cross-feature:** compose in `widgets/` or lift to `entities/`/`shared/`
+- **RBAC (UX):** `useUser().can()` + `AuthWrapper`; BE guards = real security
+- **Public SSR:** `publicApi` + `generateMetadata` + `JsonLd` for `/[username]`, `/trace/*`, `/org/[slug]`
+- **Submit forms:** `useGuardedSubmit` + `GuardedForm` + `SubmitButton` + `useSingleFlightMutation` (DEV-PLAYBOOK §3)
+- **Admin:** separate project — not in this repo

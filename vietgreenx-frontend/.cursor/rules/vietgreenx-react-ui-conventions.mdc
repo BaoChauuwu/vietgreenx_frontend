@@ -1,0 +1,19 @@
+---
+description: React TSX conventions aligned with VietGreenX docs
+globs: src/**/*.tsx
+alwaysApply: false
+---
+
+# VietGreenX React UI Conventions
+
+Apply these rules for UI work in TSX files:
+
+- Keep route files in `src/app/**/page.tsx` thin: compose widgets/features only, avoid business logic and direct data access.
+- Prefer composition order from docs: `entities` for dumb display, `features` for actions/forms, `widgets` for screen-sized assembly.
+- Use components from `src/shared/ui` first (shadcn primitives) before creating new base UI elements.
+- **Submit UX:** `SubmitButton` + `GuardedForm` from `shared/ui`; lock via `useGuardedSubmit` from `shared/lib`.
+- Handle async UX via TanStack Query hooks from features — no inline fetch.
+- Follow existing design tokens and Tailwind semantics from `globals.css` and `tailwind.config.ts` (no random hardcoded theme systems).
+- Import slices via their `index.ts` barrel whenever available; avoid deep imports into internal files.
+
+Primary references: `DEV-PLAYBOOK.md`, `FSD-GUIDE.md`, `ARCHITECTURE.md`.

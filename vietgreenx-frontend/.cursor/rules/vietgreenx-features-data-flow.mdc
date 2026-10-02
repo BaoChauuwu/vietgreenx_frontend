@@ -1,0 +1,23 @@
+---
+description: Feature-layer data flow and API standards for VietGreenX
+globs: src/features/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# VietGreenX Feature Data Flow Standards
+
+When editing under `src/features/**`, enforce this implementation flow:
+
+- Keep strict pipeline: `feature ui -> feature queries -> feature service -> shared createService -> shared axios`.
+- Never call axios directly inside feature UI/components; network access belongs in `api/*.service.ts`.
+- Define or reuse schemas/types from `src/entities/*/model`; validate API responses with Zod at service boundary.
+- Place TanStack Query keys in local key factories, and invalidate/refetch predictably in mutations.
+- Wrap side-effect mutations in `useSingleFlightMutation`; query hook files need `"use client"`.
+- Form POST/PATCH: `useGuardedSubmit` + `onSettled: () => release()` — see `ProfileEditForm.tsx`.
+- Use `toastService` for user feedback in mutation/query outcomes instead of ad-hoc alert patterns.
+- Keep feature folders split by concern: `api/`, `model/` (input schemas only), `ui/`, and export through local `index.ts`.
+- Do not import another feature's internals; if cross-feature assembly is needed, move composition up to a widget.
+- Respect role and onboarding constraints by integrating with `shared/auth` contracts where relevant.
+- Before completion, ensure feature changes can pass `npm run lint` and `npm run typecheck`.
+
+Primary references: `DEV-PLAYBOOK.md` (sections 1–3, 6–7), `FSD-GUIDE.md`, `ARCHITECTURE.md`.

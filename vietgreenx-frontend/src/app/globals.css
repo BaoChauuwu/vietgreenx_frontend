@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "../styles/index.css";
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-weight: 400;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Scrollbar — thin, consistent, design-token-based ─────────────── */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground) / 0.5);
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+}
+
+@layer components {
+  /* Story Canvas only — auth / landing panels */
+  .vgx-surface-soft {
+    @apply rounded-xl border border-primary/10 bg-gradient-to-br from-primary-50 via-background to-primary-50/40;
+  }
+
+  /* Social Canvas — feed main area (FB #F0F2F5-like grey vs white elevated cards) */
+  .vgx-social-canvas {
+    @apply bg-primary/10;
+  }
+
+  /* Elevated cards — white surfaces on grey canvas (feed + module pages) */
+  .vgx-elevated-surface,
+  .vgx-feed-surface {
+    @apply rounded-xl border-0 bg-card shadow-[0_1px_2px_rgba(0,0,0,0.08),0_0_1px_rgba(0,0,0,0.06)];
+  }
+
+  /* Content column — 14px mobile → 15px sm+ */
+  .vgx-content-column,
+  .vgx-feed-column {
+    @apply text-sm leading-relaxed;
+
+    @screen sm {
+      font-size: 15px;
+    }
+  }
+}

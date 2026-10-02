@@ -1,0 +1,2 @@
+# Husky pre-commit hook: run lint-staged so only staged files are linted/formatted.
+npx lint-staged
