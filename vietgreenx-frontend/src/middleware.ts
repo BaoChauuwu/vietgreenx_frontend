@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
 import { LOCALE_COOKIE_NAME, detectLocaleFromHeader } from "@/shared/i18n/locale";
-import { ACCESS_COOKIE, ROUTES, isProtectedPath, MIDDLEWARE_MATCHER } from "@/shared/routing";
+import { ACCESS_COOKIE, ROUTES, isProtectedPath } from "@/shared/routing";
 
 function applyLocaleCookie(res: NextResponse, req: NextRequest): NextResponse {
   const localeCookie = req.cookies.get(LOCALE_COOKIE_NAME)?.value;
@@ -31,5 +31,31 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [...MIDDLEWARE_MATCHER],
+  matcher: [
+    "/login",
+    "/register",
+    "/otp",
+    "/verify-email",
+    "/forgot-password",
+    "/reset-password",
+    "/onboarding",
+    "/feed/:path*",
+    "/profile/:path*",
+    "/settings/:path*",
+    "/search/:path*",
+    "/notifications/:path*",
+    "/pricing/:path*",
+    "/post/:path*",
+    "/green-profile/:path*",
+    "/products/:path*",
+    "/batches/:path*",
+    "/qr/:path*",
+    "/marketplace/:path*",
+    "/chat/:path*",
+    "/quotations",
+    "/quotations/:path*",
+    "/org",
+    "/org/:path*",
+    "/accept-invite",
+  ],
 };

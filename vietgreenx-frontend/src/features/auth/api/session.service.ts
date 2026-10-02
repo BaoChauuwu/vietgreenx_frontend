@@ -48,17 +48,12 @@ export const sessionService = {
       return { user: mapProfileToAuthUser(profile, role), profile };
     } catch {
       const fallbackProfile: ProfileResponse = {
+        id: "00000000-0000-0000-0000-000000000000",
         userId,
         displayName: "Đỗ Nguyễn Bảo Châu",
         bio: null,
         avatarUrl: null,
         coverUrl: null,
-        role: role as any,
-        address: null,
-        location: null,
-        phone: null,
-        email: null,
-        status: "ACTIVE",
         createdAt: new Date().toISOString(),
       };
       return { user: mapProfileToAuthUser(fallbackProfile, role), profile: fallbackProfile };

@@ -1,6 +1,6 @@
 import { publicRequest } from "@/shared/api/api";
 import { parseApiResponse } from "@/shared/api/create-service";
-import type { AuthUser } from "@/shared/auth";
+import { UserRole, type AuthUser } from "@/shared/auth";
 import { authTokenResponseSchema } from "@/shared/auth/auth-token.schema";
 import { sessionService } from "./session.service";
 import { persistAuthSession } from "@/shared/auth/token-storage";
@@ -29,6 +29,9 @@ function resolveIdentifierBody(identifier: string) {
 }
 
 async function establishSession(tokens: unknown, fallbackRole?: string, fallbackName?: string): Promise<AuthUser> {
+  const tokenObj = typeof tokens === "object" && tokens !== null ? (tokens as Record<string, unknown>) : {};
+  const tokenRole = (typeof tokenObj.role === "string" ? tokenObj.role : fallbackRole || UserRole.CONSUMER) as UserRole;
+
   try {
     const parsed = authTokenResponseSchema.parse(tokens);
     persistAuthSession(parsed);
@@ -37,8 +40,9 @@ async function establishSession(tokens: unknown, fallbackRole?: string, fallback
       accessToken: "demo-access-token",
       refreshToken: "demo-refresh-token",
       accessTokenExpires: Date.now() + 86400000,
+      refreshTokenExpires: Date.now() + 86400000 * 30,
       userId: "demo-user-id",
-      role: (tokens as any)?.role || fallbackRole || "CONSUMER",
+      role: tokenRole,
     });
   }
 
@@ -46,12 +50,11 @@ async function establishSession(tokens: unknown, fallbackRole?: string, fallback
     const { user } = await sessionService.me();
     return user;
   } catch {
-    const role = (tokens as any)?.role || fallbackRole || "CONSUMER";
     return {
       id: "demo-user-id",
       email: null,
       fullName: fallbackName || "Đỗ Nguyễn Bảo Châu",
-      role: role as any,
+      role: tokenRole || UserRole.CONSUMER,
       orgId: null,
       onboardingCompleted: true,
     };
@@ -75,8 +78,9 @@ async function loginWithTokens(input: LoginInput): Promise<AuthUser> {
       accessToken: "demo-access-token",
       refreshToken: "demo-refresh-token",
       accessTokenExpires: Date.now() + 86400000,
+      refreshTokenExpires: Date.now() + 86400000 * 30,
       userId: "demo-user-id",
-      role: "CONSUMER",
+      role: UserRole.CONSUMER,
     });
   }
 }
@@ -141,8 +145,9 @@ export const authService = {
           accessToken: "demo-access-token",
           refreshToken: "demo-refresh-token",
           accessTokenExpires: Date.now() + 86400000,
+          refreshTokenExpires: Date.now() + 86400000 * 30,
           userId: "demo-user-id",
-          role: input.role || "CONSUMER",
+          role: (input.role as UserRole) || UserRole.CONSUMER,
         },
         input.role,
         input.displayName,
@@ -179,8 +184,9 @@ export const authService = {
           accessToken: "demo-access-token",
           refreshToken: "demo-refresh-token",
           accessTokenExpires: Date.now() + 86400000,
+          refreshTokenExpires: Date.now() + 86400000 * 30,
           userId: "demo-user-id",
-          role: input.role || "CONSUMER",
+          role: (input.role as UserRole) || UserRole.CONSUMER,
         },
         input.role,
         input.displayName,

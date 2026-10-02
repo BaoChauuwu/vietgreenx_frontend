@@ -485,8 +485,6 @@ const REGISTER_ROLE_ICONS: Record<(typeof REGISTER_ROLE_IDS)[number], LucideIcon
   consumer: Store,
   seller: Tractor,
   cooperative: Users2,
-  enterprise: Building2,
-  expert: GraduationCap,
 };
 
 export type RegisterRoleId = (typeof REGISTER_ROLE_IDS)[number];
