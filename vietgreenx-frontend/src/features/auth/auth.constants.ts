@@ -479,8 +479,6 @@ const REGISTER_ROLE_IDS = [
   UserRole.CONSUMER,
   UserRole.SELLER,
   UserRole.COOPERATIVE,
-  UserRole.ENTERPRISE,
-  UserRole.EXPERT,
 ] as const;
 
 const REGISTER_ROLE_ICONS: Record<(typeof REGISTER_ROLE_IDS)[number], LucideIcon> = {
